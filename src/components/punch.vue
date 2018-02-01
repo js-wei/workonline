@@ -4,7 +4,7 @@
  * Author: 魏巍
  * -----
  * Last Modified: 魏巍
- * Modified By: 2018-02-01 10:30:07
+ * Modified By: 2018-02-01 3:05:10
  * -----
  * Copyright (c) 2018 魏巍
  * ------
@@ -16,20 +16,18 @@
     <div class="punch container">
         <v-header :title="title" :isLeftShow="isLeftShow"></v-header>
         <div class="amap">
-            <el-amap class="amap-demo" vid="amap" 
-            :plugin="plugin" :zoom="zoom" ref="map" :events="events">
+            <el-amap class="amap-demo" vid="amap" :zoom="zoom" ref="map" :events="events">
             </el-amap>
             <div class="toolbar">
-                <ul v-if="loaded" class="toolbar-address">
+                <ul class="toolbar-address">
                     <li>公司:{{company}}</li>
                     <li>地点:{{formattedAddress}}</li>
                     <li><i>提示:圆圈内为打卡区域</i></li>
                 </ul>
-                <div v-else>正在定位...</div>
             </div>
         </div>
         <div class="punch-button">
-            <button class="btn btn-punch">打卡</button>
+            <button class="btn btn-punch" :class="{'disabled':!isPunchDisabled}">打卡</button>
         </div>
     </div>
 </template>
@@ -37,7 +35,6 @@
 <script>
     import '../../static/iconfont/iconfont.css'
     import vHeader from './component/header.vue'
-    import vTabbar from './component/tabbar.vue'
     import { Toast } from 'mint-ui';
     export default {
         data() {
@@ -45,60 +42,43 @@
             return {
                 title:'打卡签到',
                 isLeftShow:true,
-                company:'苏州三铁企业集团',
-                company_address:'苏州市玉山路99号钻石广场',
+                company:'苏州三铁企业集团',                 //打卡公司
+                company_address:'苏州市玉山路99号钻石广场',  //公司地址
                 zoom: 18,
-                formattedAddress:'',
-                position:[120.55929,31.285518],   
-                //苏州火车站:120.611057,31.329632 
+                formattedAddress:'',                       //打卡地址
+                isPunchDisabled:true,                      //不在范围禁止使用打卡按钮
+                position:[120.55951,31.286219],           //打卡坐标
+                //苏州火车站 120.611057,31.329632 
                 //名馨花园东工具站牌 120.55929,31.285518 
                 //钻石广场中心点 120.559832,31.286366 
                 //钻石广场 120.55951,31.286219
-                loaded: true,
+                //虹锦湾 120.412504,31.339436
                 events: {
                     init(map) {
                         let geocoder = new AMap.Geocoder({
                             city: "全国", 
-                            radius: 500
+                            radius: 50
                         });
-                        //地理编码,返回地理编码结果
                         geocoder.getLocation(self.company_address, function(status, result) {
                             if (status === 'complete' && result.info === 'OK') {
                                 self.geocoderCallBack(result,map,self);
-                                self.addMarker(self.position,map);
+                                let postion={
+                                    lng:self.position[0],
+                                    lat:self.position[1]
+                                };
+                                let text = {
+                                    title:'我',
+                                    sub:'我'
+                                };
+                                self.addSimpleMarker(postion,text,map);
                             }
                         });
                     }
-                },
-                plugin: [
-                    /*打开使用定位,想一想不应该是使用定位的
-                    {
-                        pName: 'Geolocation',
-                        events: {
-                            init(o) {
-                                let map = self.$refs.map.$$getInstance();
-                                let geocoder = new AMap.Geocoder({
-                                    city: "全国", 
-                                    radius: 500
-                                });
-                                //地理编码,返回地理编码结果
-                                geocoder.getLocation("苏州市玉山路99号钻石广场", function(status, result) {
-                                    if (status === 'complete' && result.info === 'OK') {
-                                        self.geocoderCallBack(result,map,self);
-                                        self.addMarker(self.position,map);
-                                    }
-                                });
-                            
-                            }
-                        }
-                    }
-                    */
-                ]
+                }
             }
         },
         components: {
             vHeader,
-            vTabbar,
             Toast
         },
         methods: {
@@ -127,6 +107,7 @@
                 for (var i = 0; i < geocode.length; i++) {
                     let lnglat = [geocode[i].location.lng,geocode[i].location.lat];
                     let result = self.addCircle(lnglat,map,self);
+                    self.formattedAddress= geocode[i].formattedAddress;
                     let postion={
                         lng:geocode[i].location.lng,
                         lat:geocode[i].location.lat,
@@ -160,11 +141,14 @@
                             infoWindow.open(map,marker.getPosition());
                         });
                     }
+                    map.setFitView();   
                 });
             },
             addMarker(position,map){
                 var marker = new AMap.Marker({ //添加自定义点标记
                     map: map,
+                    zIndex:120,
+                    fillColor:'#eb7d46',
                     position: position, //基点位置
                 });
             },
@@ -180,35 +164,46 @@
                 });
                 circle.setMap(map);
                 let flag = circle.contains(self.position);
-                document.querySelector('.btn-punch').addEventListener('click',function(e){
-                    e.preventDefault();
-                    self.punch({position:self.position,flag:flag,center:lnglat});
+                this.reGeocoder(self.position,(address)=>{
+                    document.querySelector('.btn-punch').addEventListener('click',function(e){
+                        e.preventDefault();
+                        if(this.classList.contains("disabled") && !self.isPunchDisabled){
+                            Toast({
+                                message:'不在打开范围之内',
+                                iconClass:'icon iconfont icon-dingdanzhuangtaishibai',
+                                duration: 4e3
+                            });
+                            return;
+                        }
+                        let result = {flag:flag,center:lnglat,position:self.position,punch_address:address};
+                        self.punch(result);
+                    });
                 });
+            },
+            reGeocoder(position,cb={}) {  //逆地理编码
+                var geocoder = new AMap.Geocoder({
+                    radius: 1000,
+                    extensions: "all"
+                });        
+                geocoder.getAddress(position, function(status, result) {
+                    if (status === 'complete' && result.info === 'OK') {
+                        result = result.regeocode.formattedAddress;  //返回地址描述
+                        cb(result);
+                    }
+                });   
             }
-        },
+        }
     }
 </script>
 
 <style lang="scss" scoped>
     @import 'static/sass/base';
     .punch.container{
-        height:100vh;
+        height:auto;
+        overflow: hidden;
+        margin-bottom:100px;
         .amap-demo{
-            height: 500px;
-        }
-        .amap-marker .marker-route {
-            position: absolute;
-            width: 40px;
-            height: 44px;
-            color: #e90000;
-            background: url(http://webapi.amap.com/theme/v1.3/images/newpc/poi-1.png) no-repeat;
-            cursor: pointer;
-        }
-        .amap-marker .marker-marker-bus-from {
-            background-position: -334px -180px;
-        }
-        .amap-icon{
-            z-index:1;
+            height: 530px;
         }
         .toolbar{
             .toolbar-address{
@@ -241,6 +236,9 @@
                 background-color:nth($baseColor,3);
                 color:nth($baseColor,1);
                 border-radius:50%;
+                &.disabled{
+                    opacity:.8;
+                }
             }
 
         }
@@ -248,5 +246,4 @@
             font-size:1.8rem;
         }
     }
-    
 </style>

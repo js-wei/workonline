@@ -36,7 +36,7 @@ VueAMap.initAMapApiLoader({
   key: '4ec8d0cfef06810838575a0a95e0602e',
   // 插件集合
   plugin: ['AMap.Autocomplete','AMap.Geocoder', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 
-    'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor', 'AMap.CircleEditor', 'AMap.Geolocation'
+    'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor','AMap.CircleEditor', 'AMap.Geolocation'
   ],
   uiVersion: '1.0'
 });
@@ -59,6 +59,25 @@ axios.interceptors.response.use(function (response) { //配置请求回来的信
 });
 
 Vue.config.productionTip = false
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    if (!store.getters.logined) {
+      next({
+        path: '/login',
+        query: { redirect: to.fullPath }
+      })
+    } else {
+      next()
+    }
+  } else {
+    next() // 确保一定要调用 next()
+  }
+})
+
+
 
 /* eslint-disable no-new */
 new Vue({

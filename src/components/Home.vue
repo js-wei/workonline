@@ -96,7 +96,6 @@ export default {
     height:auto;
     overflow:hidden;
     .container{
-      padding-top:50px;
       padding-bottom:55px;
       .mint-swipe{
         padding:0;

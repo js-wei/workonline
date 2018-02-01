@@ -4,7 +4,7 @@
  * Author: 魏巍
  * -----
  * Last Modified: 魏巍
- * Modified By: 2018-01-31 5:01:15
+ * Modified By: 2018-02-01 2:31:09
  * -----
  * Copyright (c) 2018 魏巍
  * ------
@@ -29,61 +29,25 @@
             <v-qrcode :Options="Options" :showQrcode="isShowQrcode"></v-qrcode>
         </div>
         <div class="noun">
-            <!-- <ul>
-                <li>
-                    <icon name="calendar-check-o"></icon>
-                    <router-link to="/">
-                        正点记录
-                    </router-link>
-                </li>
-                <li>
-                    <icon name="calendar-times-o"></icon>
-                    <router-link to="/">
-                        迟到记录
-                    </router-link>
-                </li>
-                <li>
-                    <icon name="fighter-jet"></icon>
-                    <router-link to="/">
-                        早退记录
-                    </router-link>
-                </li>
-                <li>
-                    <icon name="user-o"></icon>
-                    <router-link to="/">
-                        日常申请
-                    </router-link>
-                </li>
-                <li>
-                    <icon name="user-o"></icon>
-                    <router-link to="/">
-                        个人信息
-                    </router-link>
-                </li>
-                <li>
-                    <icon name="cog"></icon>
-                    <router-link to="/">
-                        系统设置
-                    </router-link>
-                </li>
-            </ul> -->
             <mt-cell title="正点记录" href="//github.com" is-link>
-                <img slot="icon" src="/static/images/02.jpg" width="24" height="24">
+                <icon name="calendar-check-o" slot="icon" class="icons"></icon>
             </mt-cell>
             <mt-cell title="迟到记录" href="//github.com" is-link>
-                <img slot="icon" src="/static/images/02.jpg" width="24" height="24">
+                <icon name="calendar-times-o" slot="icon" class="icons"></icon>
             </mt-cell>
             <mt-cell title="早退记录" href="//github.com" is-link>
-                <img slot="icon" src="/static/images/02.jpg" width="24" height="24">
+                <icon name="fighter-jet" slot="icon" class="icons"></icon>
             </mt-cell>
             <mt-cell title="日常申请" href="//github.com" is-link>
-                <img slot="icon" src="/static/images/02.jpg" width="24" height="24">
+                <i class="icons iconfont icon-shengpi" slot="icon" ></i>
             </mt-cell>
+        </div>
+        <div class="setting">
             <mt-cell title="个人信息" href="//github.com" is-link>
-                <img slot="icon" src="/static/images/02.jpg" width="24" height="24">
+                <icon name="user-o" slot="icon" class="icons"></icon>
             </mt-cell>
             <mt-cell title="系统设置" href="//github.com" is-link>
-                <img slot="icon" src="/static/images/02.jpg" width="24" height="24">
+                <icon name="cog" slot="icon" class="icons"></icon>
             </mt-cell>
         </div>
         <v-tabbar></v-tabbar>
@@ -135,10 +99,7 @@
 <style lang="scss" scoped>
     @import 'static/sass/base';
     .container.my{
-        height:100vh;
-        width:100vw;
         background-color:nth($baseColor,1);
-        padding-top:50px;
         .profile{
             width:100%;
             height:180px;
@@ -174,24 +135,27 @@
                 bottom:70px;
             }
         }
-        .noun{
-            // ul{
-            //     list-style-type:none;
-            //     padding:0;
-            //     margin:10px 0;
-            //     li{
-            //         margin-left:20px;
-            //         margin-right:20px;
-            //         height:50px;
-            //         line-height:50px;
-            //         border-bottom:1px solid lighten(nth($baseColor,2),90%);
-            //         a{
-            //             text-decoration: none;
-            //             color: nth($baseColor,2);
-            //             font-size:1.2rem;
-            //         }
-            //     }
-            // }
+        .noun,.setting{
+            margin-top:20px;
+            .mint-cell{
+                .mint-cell-wrapper{
+                    .mint-cell-title{
+                        position: relative;
+                        .icons{
+                            position: absolute;
+                            color:lighten(nth($baseColor,2),30%);
+                            top:10px;
+                            width:30px;
+                            height:30px;
+                            left:10px;
+                        }
+                        i{
+                            font-size:1.8rem;
+                            font-weight:bold;
+                        }
+                    }
+                }
+            }
         }
     }
 </style>

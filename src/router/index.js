@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Home from '@/components/Home'
 import Punch from '@/components/punch'
 import My from '@/components/my'
+import Login from '@/components/login'
+import Register from '@/components/register'
 
 
 Vue.use(Router)
@@ -28,9 +30,20 @@ export default new Router({
       component:Punch
     },
     {
+      path:'/login',
+      name:'login',
+      component:Login
+    },
+    {
+      path:'/register',
+      name:'register',
+      component:Register
+    },
+    {
       path:'/my',
       name:'my',
-      component:My
+      component:My,
+      meta: { requiresAuth: true }
     }
   ]
 })

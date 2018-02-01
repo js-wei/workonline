@@ -5,13 +5,7 @@
 </template>
 <script>
 export default {
-  name: 'App',
-  mounted(){
-    if(document.querySelector('.mint-header')){
-      let headerHeight = document.querySelector('.mint-header').offsetHeight;
-      document.querySelector('.container').style.paddingTop = headerHeight + 'px';
-    }
-  }
+  name: 'App'
 }
 </script>
 
@@ -19,8 +13,7 @@ export default {
   body{
     margin:0;
     padding:0;
-    height:100vh;
-    background-color:rgba(0, 0, 0, 0.068);
+    //background-color:rgba(0, 0, 0, 0.068);
   }
   :focus{
     outline:0;
@@ -35,7 +28,16 @@ export default {
   .amap-simple-marker-def-style .amap-simple-marker-label{
     line-height:40px !important;
   }
-
+  .container{
+    margin-top:50px;
+    height:auto;
+    padding-bottom:10px;
+  }
+  span.mint-cell-text{
+    color: rgb(77, 77, 77);
+    margin-left:35px;
+    font-size:1.2rem;
+  }
   @media screen and (min-width:768px) and (max-width:1024px){
     html{font-size:120%}
     .header{

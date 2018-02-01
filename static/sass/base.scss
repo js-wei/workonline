@@ -4,7 +4,7 @@
  * Author: 魏巍
  * -----
  * Last Modified: 魏巍
- * Modified By: 2018-01-31 1:49:21
+ * Modified By: 2018-02-01 4:18:05
  * -----
  * Copyright (c) 2018 魏巍
  * ------
@@ -42,18 +42,18 @@ html{
 
     @each $index,$number in $squares {
     .ml-#{$index} {
-        border-left: $square*$number !important;
+        margin-left: $square*$number !important;
     }
     .mt-#{$index} {
-        border-top: $square*$number !important;
+        margin-top: $square*$number !important;
     }
     .mr-#{$index} {
-        border-right: $square*$number !important;
+        margin-right: $square*$number !important;
     }
     .mb-#{$index} {
-        border-bottom: $square*$number !important;
+        margin-bottom: $square*$number !important;
     }
-        .pt-#{$index} {
+    .pt-#{$index} {
         padding-top: $square*$number !important;
     }
     .pl-#{$index} {
