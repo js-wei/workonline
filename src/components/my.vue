@@ -4,7 +4,7 @@
  * Author: 魏巍
  * -----
  * Last Modified: 魏巍
- * Modified By: 2018-02-01 2:31:09
+ * Modified By: 2018-02-02 1:16:27
  * -----
  * Copyright (c) 2018 魏巍
  * ------
@@ -43,7 +43,7 @@
             </mt-cell>
         </div>
         <div class="setting">
-            <mt-cell title="个人信息" href="//github.com" is-link>
+            <mt-cell title="个人信息" to="/profile" is-link>
                 <icon name="user-o" slot="icon" class="icons"></icon>
             </mt-cell>
             <mt-cell title="系统设置" href="//github.com" is-link>
@@ -68,7 +68,7 @@
                 userInfo:{
                     id:1,
                     username:'13584866592',
-                    head:'static/images/02.jpg',
+                    head:'/static/images/02.jpg',
                     nickname:'且行且珍惜',
                     sex:0,
                 },

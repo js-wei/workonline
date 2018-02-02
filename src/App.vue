@@ -38,6 +38,10 @@ export default {
     margin-left:35px;
     font-size:1.2rem;
   }
+  .mint-cell-wrapper{
+    background:none;
+    border-bottom:1px solid #f2f2f2;
+  }
   @media screen and (min-width:768px) and (max-width:1024px){
     html{font-size:120%}
     .header{

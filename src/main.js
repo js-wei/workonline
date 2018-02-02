@@ -22,6 +22,10 @@ Vue.component('icon', Icon)
 import Filters from './filters'
 Object.keys(Filters).forEach(key => Vue.filter(key, Filters[key]))
 
+//
+import Metheds from './metheds'
+Object.keys(Metheds).forEach(key => Vue.prototype[key] = Metheds[key])
+
 //axios
 import axios from 'axios'
 import VueAxios from 'vue-axios'
@@ -65,10 +69,11 @@ router.beforeEach((to, from, next) => {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
     if (!store.getters.logined) {
-      next({
-        path: '/login',
-        query: { redirect: to.fullPath }
-      })
+      // next({
+      //   path: '/login',
+      //   query: { redirect: to.fullPath }
+      // })
+      next()
     } else {
       next()
     }

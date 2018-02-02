@@ -4,7 +4,7 @@
  * Author: 魏巍
  * -----
  * Last Modified: 魏巍
- * Modified By: 2018-02-01 5:12:19
+ * Modified By: 2018-02-02 11:30:41
  * -----
  * Copyright (c) 2018 魏巍
  * ------
@@ -16,7 +16,7 @@
     <div class="login container">
         <v-header :title="title" :isLeftShow="isLeftShow"></v-header>
         <div class="profile">
-            <img src="/static/images/02.jpg">
+            <img src="/static/images/logo.png">
             <h3>使用集团账号登录<span>掌上办公</span></h3>
             <div class="login-container">
                 <mt-field placeholder="请输入手机号/邮箱" type="tel" v-model="phone" :state="state"></mt-field>
@@ -29,7 +29,7 @@
             <div class="login-button mt-8">
                 <!-- <router-link to="/">立即注册</router-link>
                 <span>|</span> -->
-                <router-link to="/">忘记密码</router-link>
+                <router-link to="/forget">忘记密码</router-link>
             </div>
         </div>
     </div>
@@ -63,26 +63,13 @@
         },
     }
 </script>
-<style scoped>
-    body{
-        background-color:#f2f2f2;        
-    }
-    .mint-cell{
-        border-bottom:1px solid #f2f2f2;
-    }
-    .mint-cell-wrapper{
-        background-color: #fff;
-        background-image:none;
-    }
-</style>
 <style lang="scss" scoped>
     @import 'static/sass/base';
     .login{
-        background-color:lighten(nth($baseColor,2),95%);
         height:100%;
         .profile{
             width:100%;
-            height:180px;
+            height:auto;
             text-align: center;
             position: relative;
             img{
@@ -100,13 +87,17 @@
                    margin-left:4px;
                }
             }
-            .login-container,.login-button{
+            .login-container{
+                margin:0 auto;
+                width:90%;
+                height:120px;
+                
+            }
+            .login-button{
                 margin:0 auto;
                 width:90%;
                 height:120px;
                 border-radius:15px;
-            }
-            .login-button{
                 .mint-button{
                     width:100%;
                     .mint-button--default{

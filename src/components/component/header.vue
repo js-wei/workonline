@@ -4,7 +4,7 @@
  * Author: 魏巍
  * -----
  * Last Modified: 魏巍
- * Modified By: 2018-01-31 9:19:03
+ * Modified By: 2018-02-02 1:37:40
  * -----
  * Copyright (c) 2018 魏巍
  * ------
@@ -15,10 +15,10 @@
 <template>
     <div class="header">
         <mt-header fixed :title="title" v-if="isHeadShow">
-            <router-link to="/" slot="left" v-if="isLeftShow">
+            <a slot="left" v-if="isLeftShow">
                 <mt-button icon="back" v-if="isBack" @click="go">返回</mt-button>
                 <mt-button icon="back" v-if="!isBack">返回</mt-button>
-            </router-link>
+            </a>
             <mt-button icon="more" slot="right" v-if="isRightShow"></mt-button>
         </mt-header>
     </div>
@@ -26,10 +26,12 @@
 
 <script>
 import { Header } from 'mint-ui';
+import loginVue from '../login.vue';
 export default {
     data() {
+        let self = this;
         return {
-            go:null,
+            go:()=>self.$router.back(),
             isBack:true
         }
     },
@@ -58,16 +60,8 @@ export default {
         Header,
     },
     created(){
-       if(this.$router.currentRoute.name){
-           this.isBack=false;
-           return;
-       }
        if(this.backHandler!=undefined && typeof(eval(this.backHandler)) == "function"){
            this.go = this.backHandler;
-       }else{
-            this.go = function(){
-                this.$router.forward(-1);
-            };
        }
     }
 }

@@ -1,10 +1,10 @@
 /**
- * File: d:\项目\workonline\src\components\register.vue
- * Created Date: 2018-02-01 4:51:08
+ * File: d:\项目\workonline\src\components\forget.vue
+ * Created Date: 2018-02-02 11:29:08
  * Author: 魏巍
  * -----
  * Last Modified: 魏巍
- * Modified By: 2018-02-02 11:26:26
+ * Modified By: 2018-02-02 11:49:10
  * -----
  * Copyright (c) 2018 魏巍
  * ------
@@ -13,21 +13,27 @@
  */
 
 <template>
-    <div class="register container">
+    <div class="container forget">
         <v-header :title="title" :isLeftShow="isLeftShow"></v-header>
         <div class="profile">
             <img src="/static/images/logo.png">
             <h3>使用集团账号登录<span>掌上办公</span></h3>
-            <div class="register-container">
-                <mt-field label="+86" placeholder="请输入手机号/邮箱" type="tel" v-model="phone" :state="state" class="phone">
-                </mt-field>
-                <mt-field  v-model="captcha" placeholder="短信验证码">
-                   <mt-button type="default" class="verify" :disabled="verify_disabled">{{verify_massege}}</mt-button>
+            <div class="tip">
+                <p>请输入您的手机或邮箱账号</p>
+            </div>
+            <div class="login-container">
+                <mt-field placeholder="请输入手机号/邮箱" type="tel" v-model="phone" :state="state"></mt-field>
+                <mt-field v-model="captcha" placeholder="请输入验证码">
+                   <img src="/static/images/verify.png">
                 </mt-field>
             </div>
-            <div class="register-button">
-                <mt-button type="primary" :disabled="disabled">立即登录/注册</mt-button>
-                <mt-button type="default" class="mt-5" @click="login">用户账号密码登录</mt-button>
+            <div class="login-button">
+                <mt-button type="primary" :disabled="disabled">下一步</mt-button>
+            </div>
+            <div class="login-button mt-8">
+                <router-link to="/login">立即注册</router-link>
+                <!--<span>|</span>
+                 <router-link to="/forget">忘记密码</router-link> -->
             </div>
         </div>
     </div>
@@ -41,14 +47,12 @@
     export default {
         data() {
             return {
-                title: '登录',
+                title: '忘记密码',
                 isLeftShow:true,
                 phone:'',
                 captcha:'',
                 state:'none',
-                disabled:true,
-                verify_massege:'获取验证码',
-                verify_disabled:false
+                disabled:true
             }
         },
         components: {
@@ -56,35 +60,15 @@
             Field,
             Button
         },
-        methods: {
-            login() {
-                this.$router.push('login');
-            }
-        },
     }
 </script>
-<style>
-    span.mint-cell-text{
-        margin-left:0; 
-    }
-    .mint-field .mint-cell-title{
-        width:50px !important;
-        border-right:1px solid #f2f2f2;
-        display: inline-block;
-        height:100%;
-        line-height:50px;
-    }
-    .mint-field .mint-cell-value{
-        margin-left:5px;
-    }
-</style>
 <style lang="scss" scoped>
     @import 'static/sass/base';
-    .register{
-        height:100%;
+    .forget{
+        margin-top:50px;
         .profile{
             width:100%;
-            height:180px;
+            height:auto;
             text-align: center;
             position: relative;
             img{
@@ -102,19 +86,30 @@
                    margin-left:4px;
                }
             }
-            .register-container,.register-button{
+            .tip{
+                p{
+                    font-size:.8rem;
+                    color:lighten(nth($baseColor,2),60%);
+                }
+            }
+            .login-container{
                 margin:0 auto;
                 width:90%;
                 height:120px;
-                border-radius:15px;
-                .verify{
-                    background-color:nth($baseColor,5);
-                    color:nth($baseColor,1);
-                    width:120px;
-                    font-size:.8rem;
+                .mint-cell{
+                    .mint-field-other{
+                        img{
+                            width:120px;
+                            height:52px;
+                            margin-top:0;
+                        }
+                    }
                 }
             }
-            .register-button{
+            .login-button{
+                margin:0 auto;
+                width:90%;
+                border-radius:15px;
                 .mint-button{
                     width:100%;
                     .mint-button--default{

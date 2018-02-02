@@ -5,6 +5,11 @@ import Punch from '@/components/punch'
 import My from '@/components/my'
 import Login from '@/components/login'
 import Register from '@/components/register'
+import Forget from '@/components/forget'
+import SetPassword from '@/components/setpassword'
+
+//
+import UserProfile from '@/components/my/profile'
 
 
 Vue.use(Router)
@@ -40,10 +45,26 @@ export default new Router({
       component:Register
     },
     {
+      path:'/forget',
+      name:'forget',
+      component:Forget
+    },
+    {
+      path:'/setpassword',
+      name:'setpassword',
+      component:SetPassword
+    },
+    {
       path:'/my',
       name:'my',
       component:My,
       meta: { requiresAuth: true }
+    },
+    {
+      path:'/profile',
+      name:'profile',
+      component:UserProfile,
+      meta: { requiresAuth: true }
     }
   ]
-})
+});

@@ -5,6 +5,32 @@
  * @Last modified by:   魏巍
  * @Last modified time: 2017-11-24T09:33:02+08:00
  */
+export const formart_date = (phptime,fmt='yyyy-MM-dd hh:mm:ss')=>{
+	var t = new Date(phptime);  
+	var tf = function(i){return (i < 10 ? '0' : '') + i};  
+	return fmt.replace(/yyyy|MM|dd|hh|mm|ss/g, function(a){  
+		switch(a){  
+			case 'yyyy':  
+				return tf(t.getFullYear());  
+				break;  
+			case 'MM':  
+				return tf(t.getMonth() + 1);  
+				break;  
+			case 'mm':  
+				return tf(t.getMinutes());  
+				break;  
+			case 'dd':  
+				return tf(t.getDate());  
+				break;  
+			case 'hh':  
+				return tf(t.getHours());  
+				break;  
+			case 'ss':  
+				return tf(t.getSeconds());  
+				break;  
+		}  
+	});    
+}
 
 export const is_formart_date=(phptime,fmt='yyyy-MM-dd hh:mm:ss')=>{
 	var   now     = new Date(phptime*1000);
