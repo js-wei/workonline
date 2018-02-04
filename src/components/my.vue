@@ -4,7 +4,7 @@
  * Author: 魏巍
  * -----
  * Last Modified: 魏巍
- * Modified By: 2018-02-02 1:16:27
+ * Modified By: 2018-02-04 3:04:53
  * -----
  * Copyright (c) 2018 魏巍
  * ------
@@ -46,7 +46,7 @@
             <mt-cell title="个人信息" to="/profile" is-link>
                 <icon name="user-o" slot="icon" class="icons"></icon>
             </mt-cell>
-            <mt-cell title="系统设置" href="//github.com" is-link>
+            <mt-cell title="系统设置" to="/setting" is-link>
                 <icon name="cog" slot="icon" class="icons"></icon>
             </mt-cell>
         </div>
@@ -95,7 +95,6 @@
         },
     }
 </script>
-
 <style lang="scss" scoped>
     @import 'static/sass/base';
     .container.my{

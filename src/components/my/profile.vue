@@ -4,7 +4,7 @@
  * Author: 魏巍
  * -----
  * Last Modified: 魏巍
- * Modified By: 2018-02-02 5:01:47
+ * Modified By: 2018-02-04 3:00:50
  * -----
  * Copyright (c) 2018 魏巍
  * ------
@@ -28,8 +28,10 @@
             </p>
         </div>
         <div class="profile-information">
-            <mt-cell title="昵称" :value="userInfo.nickname"></mt-cell>
-             <mt-cell title="介绍">
+            <mt-cell title="昵称">
+                <span @click="upgrade_nickname">{{userInfo.nickname}}</span>
+            </mt-cell>
+             <mt-cell title="介绍" class="information">
                 <span>{{userInfo.information}}</span>
             </mt-cell>
             <mt-cell title="性别" v-if="userInfo.sex==1">
@@ -81,8 +83,10 @@
 
 <script>
     import vHeader from '@/components/component/header.vue'
-    import { Actionsheet,Cell,DatetimePicker,Popup,Radio,Toast,Picker,Button } from 'mint-ui'
+    import { Actionsheet,Cell,DatetimePicker,Popup,Radio,Toast,Picker,Button
+            ,MessageBox  } from 'mint-ui'
     import myaddress from '../../../static/javascript/address3.json'     //引入省市区数据 
+    import loginVue from '../login.vue';
     
     export default {
         data() {
@@ -159,7 +163,8 @@
             Radio,
             Toast,
             Picker,
-            Button 
+            Button,
+            MessageBox 
         },
         methods: {
             upgrade_heade() {
@@ -228,6 +233,11 @@
                     iconClass:'icon iconfont icon-msnui-success',
                     duration: 4e3
                 });
+            },
+            upgrade_nickname(){
+                MessageBox.prompt('请输入昵称').then(({ value, action }) => {
+                    console.log(value,action)
+                });
             }
         },
         watch: {
@@ -239,28 +249,6 @@
     }
 </script>
 
-<style>
-    .mint-cell-title{
-        min-width:65px;
-    }
-    span.mint-cell-text{
-        margin-left:0;
-        font-size: 1rem;
-    }
-    .mint-cell-value{
-        line-height:1.5rem;
-        font-size:.9rem;
-        padding:5px;
-    }
-    .mint-popup.mint-popup-bottom{
-        width:100%;
-    }
-    .mint-button.mint-button--primary{
-        width:45%;
-        margin-top:10px;
-        margin-left:10px;
-    }
-</style>
 <style lang="scss" scoped>
      @import 'static/sass/base';
     .profile{

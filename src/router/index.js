@@ -7,7 +7,7 @@ import Login from '@/components/login'
 import Register from '@/components/register'
 import Forget from '@/components/forget'
 import SetPassword from '@/components/setpassword'
-
+import Setting from '@/components/setting'
 //
 import UserProfile from '@/components/my/profile'
 
@@ -64,6 +64,12 @@ export default new Router({
       path:'/profile',
       name:'profile',
       component:UserProfile,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/setting',
+      name: 'setting',
+      component: Setting,
       meta: { requiresAuth: true }
     }
   ]

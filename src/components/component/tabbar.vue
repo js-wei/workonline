@@ -4,7 +4,7 @@
  * Author: 魏巍
  * -----
  * Last Modified: 魏巍
- * Modified By: 2018-01-31 9:47:09
+ * Modified By: 2018-02-04 2:43:54
  * -----
  * Copyright (c) 2018 魏巍
  * ------
@@ -99,6 +99,8 @@
 <style lang="scss" scoped>
     @import 'static/sass/base';
     .tabbar{
+        z-index:100;
+        overflow: hidden;
         .mint-tabbar{
             background-color: nth($baseColor,5);
             color:nth($baseColor,1);

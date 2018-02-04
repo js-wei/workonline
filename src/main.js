@@ -4,6 +4,9 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
+//animate.css
+import 'vue2-animate/dist/vue2-animate.min.css';
+
 //MintUI
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
